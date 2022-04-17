@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/gophercloud/gophercloud/openstack/imageservice/v2/images"
 )
@@ -30,16 +29,13 @@ type productVersionItem struct {
 }
 
 func (s *server) makeMetadataFromImages(imageMap map[string]images.Image) metadata {
-	now := time.Now().UTC()
-	dateVersion := fmt.Sprintf("%4d%02d%02d", now.Year(), now.Month(), now.Day())
-
 	products := make(map[string]product, len(imageMap))
 	for ver, image := range imageMap {
 		products[fmt.Sprintf("com.ubuntu.cloud:server:%s:amd64", ver)] = product{
 			Architecture: "amd64",
 			Version:      ver,
 			Versions: map[string]productVersion{
-				dateVersion: {
+				fmt.Sprintf("%4d%02d%02d", image.UpdatedAt.Year(), image.UpdatedAt.Month(), image.UpdatedAt.Day()): {
 					Items: map[string]productVersionItem{
 						image.ID: {
 							Endpoint: s.endpoint,
