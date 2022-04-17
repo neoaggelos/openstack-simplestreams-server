@@ -1,0 +1,10 @@
+---
+version: '2.7'
+
+services:
+  simplestreams:
+    image: neoaggelos/openstack-simplestreams-server:0.1.0
+    network_mode: host
+    user: '889'
+    env_file: ./openrc
+    entrypoint: /openstack-simplestreams-server -listen 0.0.0.0:8080
