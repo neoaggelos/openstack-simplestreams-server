@@ -12,7 +12,12 @@ openstack role add --user product-streams --project service reader
 Create `openrc` file with `OS_*` credentials for the productstreams user. Run server locally:
 
 ```bash
+# with docker-compose
 docker-compose up -d
+
+# or with docker
+docker create --name openstack_simplestreams_server --restart always --network host --env-file ./openrc --restart=always neoaggelos/openstack-simplestreams-server:0.1.0
+docker start openstack_simplestreams_server
 ```
 
 ## Release
