@@ -5,7 +5,7 @@ Run a server that exposes a simplestreams endpoint for the Ubuntu images of an O
 ## Install
 
 ```bash
-openstack user create productstreams --domain default --project service --password-prompt
+openstack user create product-streams --domain default --project service --password-prompt
 openstack role add --user product-streams --project service reader
 ```
 
