@@ -14,8 +14,6 @@ import (
 type server struct {
 	regionName string
 	endpoint   string
-
-	glanceClient *gophercloud.ServiceClient
 }
 
 func getRegionName() string {
@@ -29,7 +27,25 @@ func getRegionName() string {
 	return ""
 }
 
+func getIdentityEndpoint() string {
+	if r := os.Getenv("OS_AUTH_URL"); r != "" {
+		return r
+	}
+	if cloud, err := clientconfig.GetCloudFromYAML(&clientconfig.ClientOpts{Cloud: os.Getenv("OS_CLOUD")}); err == nil && cloud.AuthInfo.AuthURL != "" {
+		return cloud.AuthInfo.AuthURL
+	}
+
+	return ""
+}
+
 func newServer() (*server, error) {
+	return &server{
+		regionName: getRegionName(),
+		endpoint:   getIdentityEndpoint(),
+	}, nil
+}
+
+func (s *server) getUbuntuImages() (map[string]images.Image, error) {
 	// Get a Provider Client
 	ao, err := clientconfig.AuthOptions(&clientconfig.ClientOpts{})
 	if err != nil {
@@ -45,16 +61,8 @@ func newServer() (*server, error) {
 		return nil, err
 	}
 
-	return &server{
-		regionName:   getRegionName(),
-		endpoint:     ao.IdentityEndpoint,
-		glanceClient: client,
-	}, nil
-}
-
-func (s *server) getUbuntuImages() (map[string]images.Image, error) {
 	imageMap := make(map[string]images.Image)
-	if err := images.List(s.glanceClient, images.ListOpts{}).EachPage(func(page pagination.Page) (bool, error) {
+	if err := images.List(client, images.ListOpts{}).EachPage(func(page pagination.Page) (bool, error) {
 		list, err := images.ExtractImages(page)
 		if err != nil {
 			panic(err)
