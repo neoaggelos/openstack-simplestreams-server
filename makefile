@@ -1,7 +1,7 @@
 all: docker
 
 IMAGE=neoaggelos/openstack-simplestreams-server
-VERSION=0.1.0
+VERSION=0.2.0
 
 docker-build: *.go Dockerfile
 	docker build -t $(IMAGE):$(VERSION) .

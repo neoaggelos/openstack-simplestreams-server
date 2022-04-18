@@ -3,7 +3,7 @@ version: '2.7'
 
 services:
   simplestreams:
-    image: neoaggelos/openstack-simplestreams-server:0.1.0
+    image: neoaggelos/openstack-simplestreams-server:0.2.0
     network_mode: host
     user: '889'
     restart: always
