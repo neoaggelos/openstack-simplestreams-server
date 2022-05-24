@@ -70,7 +70,7 @@ func (s *server) getUbuntuImages() (map[string]images.Image, error) {
 		for _, image := range list {
 			if image.Properties["os_distro"] == "ubuntu" {
 				if ver := image.Properties["os_version"].(string); ver != "" {
-					if existing, ok := imageMap[ver]; !ok || existing.UpdatedAt.Before(image.UpdatedAt) {
+					if existing, ok := imageMap[ver]; !ok || (ok && existing.CreatedAt.Before(image.CreatedAt)) {
 						imageMap[ver] = image
 					}
 				}
