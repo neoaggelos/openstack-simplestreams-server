@@ -19,6 +19,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	http.Handle("/", http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		rw.Write([]byte("/streams/v1/index.json\n/streams/v1/com.ubuntu.cloud-released-imagemetadata.json\n"))
+	}))
+
 	http.Handle("/streams/v1/index.json", http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		ubuntuImages, err := s.getUbuntuImages()
 
