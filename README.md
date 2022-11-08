@@ -16,14 +16,14 @@ Create `openrc` file with `OS_*` credentials for the productstreams user. Run se
 docker-compose up -d
 
 # or with docker
-docker create --name openstack_simplestreams_server --restart always --network host --env-file ./openrc --restart=always neoaggelos/openstack-simplestreams-server:0.3.0
+docker create --name openstack_simplestreams_server --restart always --network host --env-file ./openrc --restart=always neoaggelos/openstack-simplestreams-server:0.4.0
 docker start openstack_simplestreams_server
 ```
 
 ## Release
 
 ```bash
-make docker IMAGE=neoaggelos/openstack-simplestreams-version VERSION=0.3.0
+make docker IMAGE=neoaggelos/openstack-simplestreams-version VERSION=0.4.0
 ```
 
 ## Development
