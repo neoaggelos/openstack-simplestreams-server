@@ -29,6 +29,7 @@ func main() {
 
 		if err != nil {
 			rw.WriteHeader(http.StatusInternalServerError)
+			log.Printf("Failed to retrieve ubuntu images: %v\n", err)
 			return
 		}
 
@@ -36,6 +37,7 @@ func main() {
 		b, err := json.Marshal(index)
 		if err != nil {
 			rw.WriteHeader(http.StatusInternalServerError)
+			log.Printf("Failed to marshal index: %v\n", err)
 			return
 		}
 
@@ -47,6 +49,7 @@ func main() {
 
 		if err != nil {
 			rw.WriteHeader(http.StatusInternalServerError)
+			log.Printf("Failed to retrieve ubuntu images: %v\n", err)
 			return
 		}
 
@@ -54,6 +57,7 @@ func main() {
 		b, err := json.Marshal(metadata)
 		if err != nil {
 			rw.WriteHeader(http.StatusInternalServerError)
+			log.Printf("Failed to marshal ubuntu images metadata: %v\n", err)
 			return
 		}
 
