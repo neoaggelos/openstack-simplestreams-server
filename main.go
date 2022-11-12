@@ -21,6 +21,12 @@ func main() {
 	}
 
 	http.Handle("/", http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			rw.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		// helper print out available URLs
 		rw.Write([]byte("/streams/v1/index.json\n/streams/v1/com.ubuntu.cloud-released-imagemetadata.json\n"))
 	}))
 
