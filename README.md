@@ -23,7 +23,7 @@ docker start openstack_simplestreams_server
 ## Release
 
 ```bash
-make docker IMAGE=neoaggelos/openstack-simplestreams-version VERSION=0.4.0
+make docker IMAGE=neoaggelos/openstack-simplestreams-version VERSION=0.4.1
 ```
 
 ## Development
